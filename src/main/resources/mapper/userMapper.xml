@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bgtech.bizlogin.db.mapper.UserMapper">
+
+    <resultMap id="userRoleMap" type="com.bgtech.bizlogin.db.module.LoginUser">
+        <id property="uid" column="uid"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="phone" column="phone"/>
+        <collection property="roleSet" ofType="com.bgtech.bizlogin.db.module.Role">
+            <id property="rid" column="rid"/>
+            <result property="role" column="role"></result>
+        </collection>
+    </resultMap>
+    <select id="getUserByName" parameterType="string" resultMap="userRoleMap">
+        SELECT u.uid, u.username, u.password, u.phone, r.rid, r.role
+        FROM biz_role r, biz_user u, biz_user_role ur
+        WHERE u.uid = ur.uid AND ur.rid = r.rid AND u.username = #{username}
+    </select>
+
+    <select id="getUserByPhone" resultType="com.bgtech.bizlogin.db.module.LoginUser">
+        SELECT u.uid, u.username, u.password, u.phone, r.rid, r.role
+        FROM biz_role r, biz_user u, biz_user_role ur
+        WHERE u.uid = ur.uid AND ur.rid = r.rid AND u.phone = #{phone}
+    </select>
+</mapper>
