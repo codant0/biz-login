@@ -4,6 +4,8 @@ target/
 !**/src/main/**/target/
 src/main/resources/application.yaml
 logs/
+LOG_FILE_IS_UNDEFINED.json
+LOG_FILE_IS_UNDEFINED.log
 
 ### STS ###
 .apt_generated
